@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local account session - never commit cookies or browser data
+.browser-profile/
+
+# Personal order/cart data and exported files
+data/
+out/
+
+# Debug captures may contain private order information
+debug/
+debug_page1.html
+debug_*.py
+_smoke.py
+
+# Legacy local CLI (not part of the web release)
+taobao_orders.py
+导出淘宝订单.bat
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Test coverage
+.coverage
+htmlcov/

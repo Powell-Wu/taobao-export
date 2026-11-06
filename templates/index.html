@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>淘宝订单导出工具</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="logo">淘</div>
+    <div>
+      <h1>淘宝订单导出工具</h1>
+      <p class="sub">本机运行 · 扫码登录 · 字段自定义 · 按需勾选导出</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="data-badge" id="dataBadge">暂无数据</div>
+    <button class="btn stop" id="btnStop" title="停止本地服务">停止服务</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ================= 商品列表 ================= -->
+  <section class="panel table-panel">
+    <div class="toolbar">
+      <input id="search" class="search" type="search" placeholder="搜索商品 / 店铺 / 订单号…">
+      <div class="toolbar-btns">
+        <button class="btn ghost" id="btnAll">全选</button>
+        <button class="btn ghost" id="btnNone">清空</button>
+        <button class="btn ghost" id="btnInvert">反选</button>
+        <button class="btn ghost" id="btnCartChecked" title="只选中购物车里已勾选的商品">选购物车已勾选</button>
+        <label class="switch">
+          <input type="checkbox" id="onlySelected"><span>仅看已选</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="grid" id="grid">
+        <thead>
+          <tr>
+            <th class="c-check"><input type="checkbox" id="headCheck"></th>
+            <th class="c-idx">#</th>
+            <th class="c-title">商品名称</th>
+            <th class="c-spec">规格/型号</th>
+            <th class="c-qty">数量</th>
+            <th class="c-price">页面单价</th>
+            <th class="c-sub">小计</th>
+            <th class="c-shop">店铺</th>
+            <th class="c-order">订单号</th>
+            <th class="c-time">下单时间</th>
+            <th class="c-status">状态</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty">
+        <p>还没有数据</p>
+        <p class="muted">点击右侧「开始抓取」，扫码登录后自动读取订单；或先载入演示数据看看效果。</p>
+      </div>
+    </div>
+
+    <div class="table-footer">
+      <span id="footInfo" class="muted">共 0 项</span>
+      <span class="muted">带 <u>下划线</u> 的单元格可直接修改，导出以修改后为准</span>
+    </div>
+  </section>
+
+  <!-- ================= 侧栏 ================= -->
+  <aside class="side">
+
+    <section class="panel side-block">
+      <h2>数据抓取</h2>
+      <div class="row">
+        <label>数据来源</label>
+        <select id="source">
+          <option value="orders">已买到的宝贝（订单）</option>
+          <option value="cart">购物车</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>页数上限</label>
+        <input id="maxPages" type="number" value="200" min="1" max="999">
+      </div>
+      <button class="btn primary block" id="btnScrape">开始抓取</button>
+      <div class="mini-actions">
+        <button class="link" id="btnReload">重新载入数据</button>
+        <button class="link" id="btnDemo">载入演示数据</button>
+      </div>
+      <pre class="log" id="log" hidden></pre>
+    </section>
+
+    <section class="panel side-block">
+      <div class="block-head">
+        <h2>导出字段</h2>
+        <button class="link" id="btnResetFields">恢复默认</button>
+      </div>
+      <p class="hint">勾选需要的列，可改列名、调顺序。</p>
+      <ul class="field-list" id="fieldList"></ul>
+    </section>
+
+    <section class="panel side-block export-block">
+      <h2>导出</h2>
+      <div class="stats">
+        <div><span>已选商品</span><b id="statCount">0</b></div>
+        <div><span>数量合计</span><b id="statQty">0</b></div>
+        <div><span>金额合计</span><b id="statTotal">¥0.00</b></div>
+      </div>
+      <button class="btn primary block" id="btnXlsx">导出 Excel</button>
+      <button class="btn block" id="btnCsv">导出 CSV</button>
+      <div class="result" id="result" hidden></div>
+    </section>
+
+  </aside>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
