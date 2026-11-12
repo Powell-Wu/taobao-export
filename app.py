@@ -26,7 +26,7 @@ DATA_FILES = {
     "demo": DATA_DIR / "demo.json",
 }
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
 # ---------------------------------------------------------------- 字段定义
@@ -108,9 +108,6 @@ def save_store():
     DATA_FILES[source].write_text(json.dumps(
         {"orders": STORE["orders"], "scrapedAt": STORE["scrapedAt"], "source": source},
         ensure_ascii=False), encoding="utf-8")
-
-
-load_store()
 
 
 # ---------------------------------------------------------------- 路由
@@ -214,22 +211,74 @@ def scrape_status():
 
 DEMO = [
     {
-        "orderNo": "202611050001234567", "orderTime": "2026-10-28 21:14:03",
-        "shop": "某某数码旗舰店", "paid": 2598.0, "status": "交易成功",
-        "raw": "演示数据",
+        "orderNo": "DEMO-2026-0001", "orderTime": "2026-10-26 10:15:00",
+        "shop": "演示射频器材社（虚构）", "paid": 114.0, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
         "items": [
-            {"title": "无线降噪蓝牙耳机 Pro 版", "spec": "颜色：曜石黑；版本：Pro",
-             "price": 1299.0, "qty": 2, "url": "https://item.taobao.com/item.htm?id=100001", "raw": ""},
+            {"title": "SMA 同轴射频电缆组件", "spec": "SMA公-SMA公；RG316；长度1 m；50 Ω",
+             "price": 28.5, "qty": 4, "url": "https://example.invalid/demo/RF-SMA-001", "raw": ""},
         ],
     },
     {
-        "orderNo": "202611050001234568", "orderTime": "2026-10-15 10:02:41",
-        "shop": "生活杂货铺", "paid": 86.5, "status": "交易成功", "raw": "演示数据",
+        "orderNo": "DEMO-2026-0002", "orderTime": "2026-10-21 14:20:00",
+        "shop": "样例射频配件铺（虚构）", "paid": 59.6, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
         "items": [
-            {"title": "北欧风陶瓷马克杯 350ml", "spec": "奶白色", "price": 39.9, "qty": 1,
-             "url": "https://item.taobao.com/item.htm?id=100002", "raw": ""},
-            {"title": "纯棉厨房抹布 5 条装", "spec": "混色 5 条", "price": 15.55, "qty": 3,
-             "url": "https://item.taobao.com/item.htm?id=100003", "raw": ""},
+            {"title": "SMA射频连接线", "spec": "",
+             "price": 29.8, "qty": 2, "url": "https://example.invalid/demo/RF-SMA-002", "raw": ""},
+        ],
+    },
+    {
+        "orderNo": "DEMO-2026-0003", "orderTime": "2026-10-18 09:05:00",
+        "shop": "虚构真空科技铺", "paid": 748.0, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
+        "items": [
+            {"title": "真空 KF 中心支架密封圈", "spec": "KF25；铝外圈+氟橡胶O圈",
+             "price": 6.8, "qty": 10, "url": "https://example.invalid/demo/VAC-KF25-001", "raw": ""},
+            {"title": "真空计电阻规管", "spec": "",
+             "price": 680.0, "qty": 1, "url": "https://example.invalid/demo/VAC-GAUGE-001", "raw": ""},
+        ],
+    },
+    {
+        "orderNo": "DEMO-2026-0004", "orderTime": "2026-10-12 16:40:00",
+        "shop": "示例光学工坊（虚构）", "paid": 346.0, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
+        "items": [
+            {"title": "平凸透镜", "spec": "直径25.4 mm；焦距50 mm；K9；未镀膜",
+             "price": 45.0, "qty": 2, "url": "https://example.invalid/demo/OPT-LENS-001", "raw": ""},
+            {"title": "光学调整架", "spec": "1英寸镜片；两维调节；M4安装孔",
+             "price": 128.0, "qty": 2, "url": "https://example.invalid/demo/OPT-MOUNT-001", "raw": ""},
+        ],
+    },
+    {
+        "orderNo": "DEMO-2026-0005", "orderTime": "2026-10-08 11:30:00",
+        "shop": "模拟机械配件库（虚构）", "paid": 178.2, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
+        "items": [
+            {"title": "欧标铝型材", "spec": "2020；长度500 mm；阳极氧化",
+             "price": 18.5, "qty": 6, "url": "https://example.invalid/demo/MECH-2020-001", "raw": ""},
+            {"title": "内六角圆柱头螺钉", "spec": "M5×12；304不锈钢；50只/盒",
+             "price": 16.8, "qty": 4, "url": "https://example.invalid/demo/MECH-M5-001", "raw": ""},
+        ],
+    },
+    {
+        "orderNo": "DEMO-2026-0006", "orderTime": "2026-09-28 13:45:00",
+        "shop": "模拟机械配件库（虚构）", "paid": 15.9, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
+        "items": [
+            {"title": "内六角螺丝 50只装", "spec": "M5×12；304；50只",
+             "price": 15.9, "qty": 1, "url": "https://example.invalid/demo/MECH-M5-002", "raw": ""},
+        ],
+    },
+    {
+        "orderNo": "DEMO-2026-0007", "orderTime": "2026-09-20 08:50:00",
+        "shop": "样例办公用品店（虚构）", "paid": 257.7, "status": "交易成功（演示）",
+        "raw": "完全虚构演示数据，非真实订单",
+        "items": [
+            {"title": "A4 复印纸", "spec": "80 g/m²；500张/包；白色",
+             "price": 22.8, "qty": 10, "url": "https://example.invalid/demo/OFF-A4-001", "raw": ""},
+            {"title": "黑色长尾夹", "spec": "32 mm；12只/盒",
+             "price": 9.9, "qty": 3, "url": "https://example.invalid/demo/OFF-CLIP-001", "raw": ""},
         ],
     },
 ]
@@ -435,6 +484,7 @@ def main():
             print("端口 8765 已被占用。请先关闭旧窗口，或打开 http://127.0.0.1:8765 继续使用。", flush=True)
             return 1
 
+    load_store()
     SERVER = make_server("127.0.0.1", 8765, app, threaded=True)
     threading.Thread(target=SERVER.serve_forever, daemon=True).start()
 

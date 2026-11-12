@@ -257,7 +257,7 @@ $('#btnCartChecked').onclick = () => {
   toast(`已选中 ${marked.length} 件购物车勾选商品`);
 };
 $('#btnReload').onclick = () => loadData().then(() => toast('已重新载入'));
-$('#btnDemo').onclick = async () => { await api('/api/demo'); await loadData(true); toast('已载入演示数据'); };
+$('#btnDemo').onclick = async () => { await api('/api/demo', {}); await loadData(true); toast('已载入演示数据'); };
 
 /* ---------------- 导出 ---------------- */
 async function doExport(fmt) {
